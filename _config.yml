@@ -1,0 +1,9 @@
+# Site settings
+title: Title
+author:
+  name: fc
+  email: fc 'at' domain.com
+description: "description."
+
+# Build settings
+remote_theme: jekyll/minima
