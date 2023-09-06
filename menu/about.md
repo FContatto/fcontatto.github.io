@@ -8,6 +8,7 @@ Hi there! I'm a quant with experience is a wide range of asset classes (interest
 
 This blog is under construction, so I wonder how you even ended up here at this time.
 
-<i class="fa-solid fa-graduation-cap"></i>
+<i class="fa-solid fa-graduation-cap">test</i> 
+
 [comment]: <>(![fa-graduation-cap](https://raw.githubusercontent.com/fcontatto/fcontatto.github.io/main/assets/img/icons/graduation-cap-solid.svg))
 
