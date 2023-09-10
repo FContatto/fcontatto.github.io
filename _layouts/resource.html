@@ -11,8 +11,14 @@ layout: default
 </header>
 
 <div class="post-content">
+
+{% if page.summary %}<p class="article-summary">{{ page.summary }}</p>{% endif %}
+
 {{ content }}
+
 </div>
+
+<a class="back-button" href="/resources/" title="More resources">&larr; Other resources</a>
 
 </article>
 
