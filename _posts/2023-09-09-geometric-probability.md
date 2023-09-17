@@ -31,8 +31,6 @@ Draw the first point uniformly on the sphere. By symmetry, we can fix it to be t
 >1. the hyperplane intersects L and
 >2. the points $p_1, \dots, p_n$, upon having its $\theta$ coordinates set to $\pi/2$ (that is to say, being "projected" to the equator, so to speak), will define a convex hull in the subspace {$x_n=0$} that contains the centre of the equator $S^{n-2}$.
 
-A figure illustrating this i
-
 ![](https://raw.githubusercontent.com/fcontatto/fcontatto.github.io/main/assets/img/geometricprobability/sphereputnam.png)
 *Illustration of the Putnam problem in our notation*
 
