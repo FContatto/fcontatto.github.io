@@ -55,7 +55,7 @@ $$
 q_{n, n+1} = \frac{1}{2^n}.
 $$
 
-Notice how an event of probability $1/2$ naturally emerged so we can make contact with fair coin flips: assuming that the points' projection to the $x_n=0$ hyperplane define a convex hull containing the centre of the sphere, the probability that their hyperplane intersects $L$ is $1/2$. All such hyperplanes would then be mapped to the coin throwing event "head". Obviously, there are infinitely many such hyperplanes, but regardless of which one it is, the centre of the sphere will be in the interior of the convex hull if this condition is satisfied in all subdimensions.
+Notice how an event of probability $1/2$ naturally emerged so we can make contact with fair coin flips: assuming that the points' projection to the {$x_n=0$} hyperplane define a convex hull containing the centre of the sphere, the probability that their hyperplane intersects $L$ is $1/2$. All such hyperplanes would then be mapped to the coin throwing event "head". Obviously, there are infinitely many such hyperplanes, but regardless of which one it is, the centre of the sphere will be in the interior of the convex hull if this condition is satisfied in all subdimensions.
 
 # Way ahead for Problem 2
 If I ever find the time I will work out the subtle details to extend the above methodology to Problem 2. The idea is to calculate the probability that, upon choosing the first draw as the north pole, we can find $n$ points among the remaining $N-1$ that will form a convex hull containing the origin just like in Problem 1. Worth noticing that we can choose any of the $N$ points as the north pole without loss of generality.
