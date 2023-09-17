@@ -4,7 +4,7 @@ title: Felipe Contatto
 permalink: /about
 ---
 
-Hi there! I'm a quant with experience is a wide range of asset classes (interest rates, inflation, fx, credit and even crypto). My goal is to post interesting content so you enjoy your reading.
+Hi there! I'm a quant with experience is a wide range of asset classes (interest rates, inflation, fx, credit and even crypto). My goal is to post content that you may find insightful and enjoy reading.
 
 **My educational background**
 <a href="https://www.damtp.cam.ac.uk"><i class="fa fa-graduation-cap" aria-hidden="true">University of Cambridge - PhD - Applied Maths and Theoretical Physics</i></a>
