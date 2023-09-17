@@ -4,6 +4,7 @@ title: "Geometric probability: an (even) harder problem on the hardest test"
 author: "Felipe Contatto"
 categories: journal
 tags: [probability, geometry, maths]
+comments: true
 ---
 # Geometric probability: an (even) harder problem on the hardest test
 One of the most famous questions from Putnam competitions is number A6 from the 53rd Putnam of 1992 (c.f., for instance, [here](https://prase.cz/kalva/putnam/putn92.html)). The problem is: if you sample 4 points uniformly over a sphere, what is the probability that the tetrahedron defined by them contains the centre of the sphere? The problem is simple to understand and there are solutions easily found on the internet, one of which from [3Blue1Brown](https://youtu.be/OkmNXy7er84?feature=shared).
