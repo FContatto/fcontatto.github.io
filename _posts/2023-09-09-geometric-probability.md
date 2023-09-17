@@ -47,7 +47,7 @@ $$
 q_{n, n+1} = \mathbb{P}(E^n_1|E^{n-1}_2)\mathbb{P}(E^{n-1}_2) = \frac{1}{2} q_{n-1, n},
 $$
 
-where we used the fact that $\mathbb{P}(E^n_1|E^{n-1}_2)=1/2$ by symmetry.
+where we used the fact that $\mathbb{P}(E^n_1\vert E^{n-1}_2)=1/2$ by symmetry.
 
 Upon applying the obvious condition $q_{1, 2}=1/2$, we get the final solution
 
