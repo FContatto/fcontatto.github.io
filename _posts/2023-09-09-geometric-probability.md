@@ -42,9 +42,11 @@ Now, we just need to show that the $x_n$-axis will intersect the boundary of the
 **Finalising the solution**
 
 Let condition 1 above correspond to event $E^n_1$ in the probability space and condition 2 correspond to event $E^{n-1}_2$. Then
+
 $$
 q_{n, n+1} = \mathbb P(E^n_1|E^{n-1}_2)\mathbb P(E^{n-1}_2) = \frac{1}{2} q_{n-1, n},
 $$
+
 where we used the fact that $\mathbb P(E^n_1|E^{n-1}_2)=1/2$ by symmetry.
 
 Upon applying the obivous condition $q_{1, 2}=1/2$, we get the final solution
