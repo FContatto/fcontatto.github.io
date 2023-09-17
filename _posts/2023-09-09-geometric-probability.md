@@ -31,6 +31,11 @@ Draw the first point uniformly on the sphere. By symmetry, we can fix it to be t
 >1. the hyperplane intersects L and
 >2. the points $p_1, \dots, p_n$, upon having its $\theta$ coordinates set to $\pi/2$ (that is to say, being "projected" to the equator, so to speak), will define a convex hull in the subspace {$x_n=0$} that contains the centre of the equator $S^{n-2}$.
 
+A figure illustrating this i
+
+![](https://raw.githubusercontent.com/fcontatto/fcontatto.github.io/main/assets/img/geometricprobability/sphereputnam.png)
+*Illustration of the Putnam problem in our notation*
+
 **Proof of the conditions**
 
 Both conditions are clear from a picture in $2$ or $3$ dimensions, but in general, they are true because of the convexity (and closure, I should have mentioned) of the hull. In fact, consider the straight line defined by one of the points  of the convex hull (call this point the north pole) and the centre, in orther words, the $x_n$-axis: $t\in\mathbb R \mapsto (0, \dots, 0, t)$. Assume that this line will intersect one (therefore only one, by convexity) of the boundaries of the hull. We will show later that this boundary cannot contain the north pole. Since $L$ is contained in the bottom half of this line (where $t<0$), the centre will be in the hull if and only if the point of intersection happens for some $t<0$: in fact, since both the north pole and the intersection point are in the hull, the segment connecting both points is contained in it (by convexity). Therefore, the origin is in the hull if and only if the point of intersection corresponds to some $t<0$ (which is equivalent to condition 1).
@@ -55,7 +60,7 @@ $$
 q_{n, n+1} = \frac{1}{2^n}.
 $$
 
-Notice how an event of probability $1/2$ naturally emerged so we can make contact with fair coin flips: assuming that the points' projection to the {$x_n=0$} hyperplane define a convex hull containing the centre of the sphere, the probability that their hyperplane intersects $L$ is $1/2$. All such hyperplanes would then be mapped to the coin throwing event "head". Obviously, there are infinitely many such hyperplanes, but regardless of which one it is, the centre of the sphere will be in the interior of the convex hull if this condition is satisfied in all subdimensions.
+Notice how an event of probability $1/2$ naturally emerged so we can make contact with fair coin flips: assuming that the points' projection to the  {$x_n=0$} hyperplane define a convex hull containing the centre of the sphere, the probability that their hyperplane intersects $L$ is $1/2$. All such hyperplanes would then be mapped to the coin throwing event "head". Obviously, there are infinitely many such hyperplanes, but regardless of which one it is, the centre of the sphere will be in the interior of the convex hull if this condition is satisfied in all subdimensions.
 
 # Way ahead for Problem 2
 If I ever find the time I will work out the subtle details to extend the above methodology to Problem 2. The idea is to calculate the probability that, upon choosing the first draw as the north pole, we can find $n$ points among the remaining $N-1$ that will form a convex hull containing the origin just like in Problem 1. Worth noticing that we can choose any of the $N$ points as the north pole without loss of generality.
