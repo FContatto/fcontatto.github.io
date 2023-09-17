@@ -21,7 +21,7 @@ plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-t
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
 title:		           'My thoughts as a Quant Researcher'
-description:	       'discussing things that quants love'
+description:	       ''
 author:              'Felipe Contatto'
 
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
