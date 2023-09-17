@@ -14,9 +14,9 @@ And an even more general one is:
 >Problem 2: given a (n-1)-sphere in n dimensions, sample N points uniformly over it, what is the probability $q_{n,N}$ that their convex hull contains the centre?
 
 Another way to pose problem 2 is by asking the probability $p_{n,N}=1-q_{n,N}$ that N points fall in the same hemisphere. This problem was solved by [Wendel back in 1962](https://www.mscand.dk/article/view/10655/8676) by using basic combinatorics, topology and linear algebra. Remarkably, the answer to Wendel's problem is equal to the probability that, upon flipping N-1 fair coins, you get less than n heads, which is given by (assuming $N>n$)
-\begin{equation}\label{finalSolutionPn}
+\begin{align}\label{finalSolutionPn}
 p_{n,N} = \sum_{k=0}^{n-1}\mathbb P(\text{flipping exactly k heads in N-1 throws}) = \frac{1}{2^{N-1}}\sum_{k=0}^{n-1}\binom{N-1}{k}. 
-\end{equation}
+\end{align}
 
 No connection between the coin flipping probability space and Problem 2's probability space was ever established and the fact that the solutions to these seemingly unrelated problems are the same has been considered a mere coincidence. In this post, I provide a solution to Problem 1 clearly showing that the probability of the centre of the sphere being inside the convex hull is the same as that of flipping $n$ coins and getting all heads.
 
