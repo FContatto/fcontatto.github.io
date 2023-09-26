@@ -17,6 +17,12 @@ Suppose you have a time-series $(y_1, \dots, y_T)$ where you know that each $y_t
 
 Throughout this post, we will use letters $i,j,k,\dots$ to indicate the distribution indices and $t$ as the letter representing indices of the time-series. We also denote $s_t$ the random variable determining which distribution $y_t$ is coming from: $s_t=i$ corresponds to the event $y_t\sim\mathcal{N}(\mu_i,\sigma^2_i)$. So $s_t$ is the **hidden state** of the time-series at time $t$. It is hidden because we cannot observe the state directly, in fact all we can observe are the $y_t$, the **observables**. From now on, we will use the letter $f$ to denote any probability density function, in particular $f_i$ is the density function of $\mathcal{N}(\mu_i,\sigma^2_i)$, whereas discrete probability mass functions will be denoted by $\mathbb{P}$, for instance $\mathbb{P}(s_t)$ is the probability that the series was at state $s_t$ at time $t$ (notice the slight abuse of notation here, which I will maintain for the rest of the post but it should cause no ambiguity).
 
+Before diving into the algorithms, we should keep in mind the Markovian conditions, which will be important to make the problem tractable.
+
+> The transition probabilities are time independent: $$\mathbb{P}(s_t\vert s_{t-1})$$ is $t$-independent.
+> The observation $y_t$ only depends on the state $s_t$: $$f(y_t\vert s_1, \dots,s_t,y_1,\dots,y_{t-1}) = f(y_t\vert s_t)$$.
+> The state $s_t$ only depends on the state $s_{t-1}$: $$\mathbb{P}(s_t\vert s_1,\dots,s_{t-1}, y_1, \dots, y_{t-1}) = \mathbb{P}(s_t\vert s_{t-1})$$.
+
 Let us now turn our attention to both the decoding and training problems.
 
 ## Decoding problem
@@ -102,16 +108,16 @@ $$
 f_\theta(s_1,\dots, s_T, y_1,\dots, y_T) = f_\theta(y_1\vert s_1)\cdots f_\theta(y_T\vert s_T) \mathbb{P}_{\theta}(s_2\vert s_1)\cdots \mathbb{P}_{\theta}(s_T\vert s_{T-1}) \mathbb{P}_{\theta}(s_1).
 $$
 
-Let us introduce some convenient notation for the marginal distributions of $f_{\theta_0}$
+Let us introduce some convenient notation for the marginal distributions of $\mathbb{P}_{\theta_0}$:
 
 $$
 \begin{align}
 \gamma_t(i) =& \mathbb{P}_{\theta_0}(s_t=i\vert y_1,\dots,y_T) = \sum_{i_1,\dots,i_{t-1}, i_{t+1},\dots,i_T=1}^N \mathbb{P}_{\theta_0}(s_1=i_1,\dots,s_T=i_T\vert y_1,\dots,y_T) \\
-\xi_t(i,j) =& \mathbb{P}_{\theta_0}(s_t=i,s_{t+1}=j\vert y_1,\dots,y_T) = \sum_{i_l=1, l\not= i,j}^N \mathbb{P}_{\theta_0}(s_1=i_1,\dots,s_T=i_T\vert y_1,\dots,y_T)
+\xi_t(i,j) =& \mathbb{P}_{\theta_0}(s_t=i,s_{t+1}=j\vert y_1,\dots,y_T) = \sum_{i_l=1, l\not= i,j}^N \mathbb{P}_{\theta_0}(s_1=i_1,\dots,s_T=i_T\vert y_1,\dots,y_T).
 \end{align}
 $$
 
-By replacing the equation for $f_\theta$ in the $g$ definition, expanding the log of products into a sum and using the $\gamma_t$ and $\xi_t$ notations for the marginal distributions of $f_{\theta_0}$, we get
+By replacing the equation for $f_\theta$ in the $g$ definition, expanding the log of products into a sum and using the $\gamma_t$ and $\xi_t$ notations for the marginal distributions of $\mathbb{P}_{\theta_0}$, we get
 
 $$
 g(\theta,\theta_0) = \sum_{i=1}^N\log(\pi_i) \gamma_1(i) + \sum_{t=1}^{T-1}\sum_{i,j=1}^N\log(A_{ij}) \xi_t(i,j)+\sum_{i=1}^N\sum_{t=1}^{T}\log(f_i(y_t))\gamma_t(i),
@@ -158,7 +164,7 @@ $$
 
 These $\ast$-ed parameters correspond to the $\theta_1$ parameter in step 4.
 
-Now, we need to describe how to calculate the $\gamma_t$ and $\xi_t$ as functions of the guessed model parameters $$\theta_0 = \theta=(\{\pi^0_i\}_i,\{A^0_{ij}\}_{i,j},\{\mu^0_i\}_i, \{(\sigma^0)^2_i\}_i)$$. First, define
+Now, we need to describe how to calculate the $\gamma_t$ and $\xi_t$ as functions of the guessed model parameters $$\theta_0 =(\{\pi^0_i\}_i,\{A^0_{ij}\}_{i,j},\{\mu^0_i\}_i, \{(\sigma^0_i)^2\}_i)$$. First, define
 
 $$
 \begin{align}
