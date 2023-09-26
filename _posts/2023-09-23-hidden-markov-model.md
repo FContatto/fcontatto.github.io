@@ -164,7 +164,8 @@ Then, applying the definition of condition expectation and using Markovian assum
 $$
 \begin{align}
 \xi_t(i,j) =& f(S_t=i, S_{t+1}=j\vert y_1,\dots,y_T)=\frac{f(S_t=i,S_{t+1}=j, y_1,\dots,y_{t+1},y_{t+2},\dots,y_T)}{f(y_1,\dots,y_T)} \\
-=& \frac{f(y_{t+2},\dots,y_T\vert S_t=i,S_{t+1}=j, y_1,\dots,y_{t+1})f(y_{t+1}\vert S_{t}=i,S_{t+1}=j,y_1,\dots,y_{t})f(S_{t+1}=j\vert S_t=i,y_1,\dots,y_{t})f(S_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
+=& \frac{f(y_{t+2},\dots,y_T\vert S_t=i,S_{t+1}=j, y_1,\dots,y_{t+1})f(y_{t+1}\vert S_{t}=i,S_{t+1}=j,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
+\times & f(S_{t+1}=j\vert S_t=i,y_1,\dots,y_{t})f(S_t=i,y_1,\dots,y_{t}) \\
 =&\frac{f(y_{t+2},\dots,y_T\vert S_{t+1}=j)f(y_{t+1}\vert S_{t+1}=j)f(S_{t+1}=j\vert S_t=i)f(S_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
 =&\frac{f(y_{t+2},\dots,y_T\vert S_{t+1}=j)f(y_{t+1}\vert S_{t+1}=j)f(S_{t+1}=j\vert S_t=i)f(S_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
 =&\frac{\beta_{t+1}(j)f_i(y_{t+1})A_{ij}\alpha_t(i)}{\sum_{k,l=1}^N \beta_{t+1}(l)f_i(y_{t+1})A_{kl}\alpha_t(k)}
