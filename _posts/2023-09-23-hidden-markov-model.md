@@ -117,7 +117,7 @@ $$
 g(\theta,\theta_0) = \sum_{i=1}^N\log(\pi_i) \gamma_1(i) + \sum_{t=1}^{T-1}\sum_{i,j=1}^N\log(A_{ij}) \xi_t(i,j)+\sum_{i=1}^N\sum_{t=1}^{T}\log(f_i(y_t))\gamma_t(i),
 $$
 
-where $\pi_i = \mathbb{P}_\theta(s_1=i)$, $A_{ij} = \mathbb{P}_{\theta}(s_{t+1}=j\vert s_{t+1}=i)$ (which is $t$-independent) and $f_i(y_t) = f_{\theta}(y_t\vert s_t=i)$ is the emission probability of state $i$ given by
+where $$\pi_i = \mathbb{P}_\theta(s_1=i)$$, $$A_{ij} = \mathbb{P}_{\theta}(s_{t+1}=j\vert s_{t+1}=i)$$ (which is $t$-independent) and $$f_i(y_t) = f_{\theta}(y_t\vert s_t=i)$$ is the emission probability of state $i$ given by
 
 $$
 f_i(y_t)=\frac{1}{\sqrt{2\pi \sigma^2_i}}e^{-\frac{(y_t-\mu_i)^2}{2\sigma_i^2}}.
