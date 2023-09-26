@@ -76,7 +76,7 @@ For the sake of brevity, I will avoid giving proofs about the EM algorithms here
 
 ### Baum-Welch algorithm
 
-The goal is to maximise the expected log-likelihood iteratively as described by the steps below. Let $\theta$ represent the model parameters (transition, emission and initial state probabilities) and let $f_\theta$ represent the density function according to these parameters. The EM algorithm follows the steps
+The goal is to maximise the expected log-likelihood iteratively as described by the steps below. Let $\theta$ represent the model parameters (transition, emission and initial state probabilities), and let $f_\theta$ and $\mathbb{P}_\theta$ denote the density and mass functions according to these parameters, respectively. The EM algorithm follows the steps
 
 >1. Guess some initial value $\theta_0$ for $\theta$
 >2. E-step: calculate 
@@ -106,8 +106,8 @@ Let us introduce some convenient notation for the marginal distributions of $f_{
 
 $$
 \begin{align}
-\gamma_t(i) =& f_{\theta_0}(s_t=i\vert y_1,\dots,y_T) = \sum_{i_1,\dots,i_{t-1}, i_{t+1},\dots,i_T=1}^N f_{\theta_0}(s_1=i_1,\dots,s_T=i_T\vert y_1,\dots,y_T) \\
-\xi_t(i,j) =& f_{\theta_0}(s_t=i,s_{t+1}=j\vert y_1,\dots,y_T) = \sum_{i_l=1, l\not= i,j}^N f_{\theta_0}(s_1=i_1,\dots,s_T=i_T\vert y_1,\dots,y_T)
+\gamma_t(i) =& \mathbb{P}_{\theta_0}(s_t=i\vert y_1,\dots,y_T) = \sum_{i_1,\dots,i_{t-1}, i_{t+1},\dots,i_T=1}^N \mathbb{P}_{\theta_0}(s_1=i_1,\dots,s_T=i_T\vert y_1,\dots,y_T) \\
+\xi_t(i,j) =& \mathbb{P}_{\theta_0}(s_t=i,s_{t+1}=j\vert y_1,\dots,y_T) = \sum_{i_l=1, l\not= i,j}^N \mathbb{P}_{\theta_0}(s_1=i_1,\dots,s_T=i_T\vert y_1,\dots,y_T)
 \end{align}
 $$
 
@@ -173,9 +173,9 @@ $$
 \begin{align}
 \xi_t(i,j) =& f_{\theta_0}(s_t=i, s_{t+1}=j\vert y_1,\dots,y_T)=\frac{f_{\theta_0}(s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1},y_{t+2},\dots,y_T)}{f_{\theta_0}(y_1,\dots,y_T)} \\
 =& \frac{f_{\theta_0}(y_{t+2},\dots,y_T\vert s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1})f_{\theta_0}(y_{t+1}\vert s_{t}=i,s_{t+1}=j,y_1,\dots,y_{t})}{f_{\theta_0}(y_1,\dots,y_T)} \\
-& \quad \times f_{\theta_0}(s_{t+1}=j\vert s_t=i,y_1,\dots,y_{t})f_{\theta_0}(s_t=i,y_1,\dots,y_{t}) \\
-=&\frac{f_{\theta_0}(y_{t+2},\dots,y_T\vert s_{t+1}=j)f_{\theta_0}(y_{t+1}\vert s_{t+1}=j)f_{\theta_0}(s_{t+1}=j\vert s_t=i)f_{\theta_0}(s_t=i,y_1,\dots,y_{t})}{f_{\theta_0}(y_1,\dots,y_T)} \\
-=&\frac{f_{\theta_0}(y_{t+2},\dots,y_T\vert s_{t+1}=j)f_{\theta_0}(y_{t+1}\vert s_{t+1}=j)f_{\theta_0}(s_{t+1}=j\vert s_t=i)f_{\theta_0}(s_t=i,y_1,\dots,y_{t})}{f_{\theta_0}(y_1,\dots,y_T)} \\
+& \quad \times \mathbb{P}_{\theta_0}(s_{t+1}=j\vert s_t=i,y_1,\dots,y_{t})f_{\theta_0}(s_t=i,y_1,\dots,y_{t}) \\
+=&\frac{f_{\theta_0}(y_{t+2},\dots,y_T\vert s_{t+1}=j)f_{\theta_0}(y_{t+1}\vert s_{t+1}=j)\mathbb{P}_{\theta_0}(s_{t+1}=j\vert s_t=i)f_{\theta_0}(s_t=i,y_1,\dots,y_{t})}{f_{\theta_0}(y_1,\dots,y_T)} \\
+=&\frac{f_{\theta_0}(y_{t+2},\dots,y_T\vert s_{t+1}=j)f_{\theta_0}(y_{t+1}\vert s_{t+1}=j)\mathbb{P}_{\theta_0}(s_{t+1}=j\vert s_t=i)f_{\theta_0}(s_t=i,y_1,\dots,y_{t})}{f_{\theta_0}(y_1,\dots,y_T)} \\
 =&\frac{\beta_{t+1}(j)f_i(y_{t+1})A^0_{ij}\alpha_t(i)}{\sum_{k,l=1}^N \beta_{t+1}(l)f_i(y_{t+1})A^0_{kl}\alpha_t(k)}
 \end{align}
 $$
@@ -201,9 +201,9 @@ For $t>1$,
 $$
 \begin{align}
 \alpha_t(i) =& f_{\theta_0}(s_t=i,y_1,\dots,y_t) = \sum_{j=1}^N f_{\theta_0}(s_{t-1}=j, s_t=i, y_1,\dots,y_t) \\
-=& \sum_{j=1}^N f_{\theta_0}(y_t\vert s_{t-1}=j, s_{t}=i, y_1,\dots,y_{t-1})f_{\theta_0}(s_{t}=i\vert s_{t-1}=j, y_1,\dots,y_{t-1}) \\
+=& \sum_{j=1}^N f_{\theta_0}(y_t\vert s_{t-1}=j, s_{t}=i, y_1,\dots,y_{t-1})\mathbb{P}_{\theta_0}(s_{t}=i\vert s_{t-1}=j, y_1,\dots,y_{t-1}) \\
 & \quad \times f_{\theta_0}(s_{t-1}=j, y_1,\dots,y_{t-1}) \\
-=& \sum_{j=1}^N f_{\theta_0}(y_t\vert s_{t}=i)f_{\theta_0}(s_{t}=i\vert s_{t-1}=j)\alpha_{t-1}(j).
+=& \sum_{j=1}^N f_{\theta_0}(y_t\vert s_{t}=i)\mathbb{P}_{\theta_0}(s_{t}=i\vert s_{t-1}=j)\alpha_{t-1}(j).
 \end{align}
 $$
 
@@ -223,7 +223,7 @@ The recursion for $\beta$ is found in a similar fashion. For $t>1$,
 $$
 \begin{align}
 \beta_{t-1}(i) =& f_{\theta_0}(y_t,\dots,y_T\vert s_{t-1}=i) = \sum_{j=1}^N f_{\theta_0}(s_t=j,y_t,\dots,y_T\vert s_{t-1}=i) \\
-=& \sum_{j=1}^N f_{\theta_0}(y_{t+1},\dots,y_T\vert s_{t-1}=i, s_t=j, y_t)f_{\theta_0}(y_t\vert s_{t-1}=i,s_t=j)f_{\theta_0}(s_t=j\vert s_{t-1}=i) \\
+=& \sum_{j=1}^N f_{\theta_0}(y_{t+1},\dots,y_T\vert s_{t-1}=i, s_t=j, y_t)f_{\theta_0}(y_t\vert s_{t-1}=i,s_t=j)\mathbb{P}_{\theta_0}(s_t=j\vert s_{t-1}=i) \\
 =& \sum_{j=1}^N f_{\theta_0}(y_{t+1},\dots,y_T\vert s_t=j)f_{\theta_0}(y_t\vert s_t=j)A^0_{ij}.
 \end{align}
 $$
