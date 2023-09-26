@@ -127,7 +127,7 @@ We now have our target function $g$ written explicitly in terms of the model par
 
 #### M-step
 
-We need to maximise $\theta \mapsto g(\theta,\theta_0)$ conditional on the constraints $\sum_{i=1}^N \pi_i = 1$ and $\sum_{j=1}^N A_{ij} = 1\, \forall i=1,\dots,N$. This constrained maximisation problem can be achieved by Lagrange multipliers. In fact, maximising $g$ under these constraints is the same as maximising the Lagrangian (under the same constraints)
+We need to maximise $\theta \mapsto g(\theta,\theta_0)$ conditional on the constraints $\sum_{i=1}^N \pi_i = 1$ and $\sum_{j=1}^N A_{ij} = 1,\, \forall i=1,\dots,N$. This constrained maximisation problem can be achieved by Lagrange multipliers. In fact, maximising $g$ under these constraints is the same as maximising the Lagrangian (under the same constraints)
 
 $$
 \mathcal{L}(\theta,\theta_0) = g(\theta,\theta_0) - \lambda_1 \left(\sum_{i=1}^N \pi_i - 1\right) - \sum_{i=1}^N\lambda_{2,i} \left(\sum_{j=1}^N A_{ij} - 1\right),
