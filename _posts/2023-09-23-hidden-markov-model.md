@@ -70,11 +70,11 @@ For the sake of brevity, I will avoid giving proofs about the EM algorithms here
 
 ### Baum-Welch algorithm
 
-The goal is to maximise the expected log-likelihood iteratively as described by the steps below.
+The goal is to maximise the expected log-likelihood iteratively as described by the steps below. Let $\theta$ represent the model parameters (transition, emission and initial state probabilities) and let $f_\theta$ represent the density function according to these parameters. The EM algorithm follows the steps
 
 >1. Guess some initial value $\theta_0$ for $\theta$
 >2. E-step: calculate 
-> $g(\theta,\theta_0) = \mathbb{E}_{S_1,\dots,S_T\sim f_{\theta_0}}\left[\log f_\theta(S_1,\dots,S_T,y_1,\dots,y_T)\vert y_1,\dots,y_T\right]$
+>$g(\theta,\theta_0) = \mathbb{E}_{S_1,\dots,S_T\sim f_{\theta_0}}\left[\log f_\theta(S_1,\dots,S_T,y_1,\dots,y_T)\vert y_1,\dots,y_T\right]$
 >3. M-step: maximise $\theta_1=\arg\max_{\theta}g(\theta,\theta_0)$
 >4. Set $\theta_0=\theta_1$.
 >5. Iterate over steps 2, 3 and 4 until the log-likelihood does not change by more than a predefined tolerante (or until the maximum number of iterations allowed by the user is reached).
