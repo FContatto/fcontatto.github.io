@@ -31,7 +31,7 @@ A naive approach would be to do a brute force search through all the possible se
 
 ### Viterbi algorithm
 
-In order to greatly improve the runtime of the decoding algorithm, let us rewrite it in a convenient way. First, use the definition of conditional probability to get
+In order to greatly improve the runtime of the decoding algorithm, let us rewrite it in a convenient way. First, use the definition of conditional probability to derive the recursion relation
 
 $$
 \begin{align}
