@@ -223,14 +223,14 @@ $$
 \begin{align}
 \beta_{t-1}(i) =& f_{\theta_0}(y_t,\dots,y_T\vert s_{t-1}=i) = \sum_{j=1}^N f_{\theta_0}(s_t=j,y_t,\dots,y_T\vert s_{t-1}=i) \\
 =& \sum_{j=1}^N f_{\theta_0}(y_{t+1},\dots,y_T\vert s_{t-1}=i, s_t=j, y_t)f_{\theta_0}(y_t\vert s_{t-1}=i,s_t=j)f_{\theta_0}(s_t=j\vert s_{t-1}=i) \\
-=& \sum_{j=1}^N f_{\theta_0}(y_{t+1},\dots,y_T\vert s_t=j)f_{\theta_0}(y_t\vert s_t=j)A_{ij}.
+=& \sum_{j=1}^N f_{\theta_0}(y_{t+1},\dots,y_T\vert s_t=j)f_{\theta_0}(y_t\vert s_t=j)A^0_{ij}.
 \end{align}
 $$
 
 Thus, the backward part of the algorithm is given by
 $$
 \begin{align}
-\beta_{t-1}(i) =& \sum_{j=1}^N \beta_t(j)f_j(y_t)A_{ij} \\
+\beta_{t-1}(i) =& \sum_{j=1}^N \beta_t(j)f_j(y_t)A^0_{ij} \\
 \beta_T(i) =& 1.
 \end{align}
 $$
