@@ -117,7 +117,7 @@ $$
 f_i(y_t)=\frac{1}{\sqrt{2\pi \sigma^2_i}}e^{-\frac{(y_t-\mu_i)^2}{2\sigma_i^2}}.
 $$
 
-We now have our target function $g$ written explicitly in terms of the model parameters $\theta=(\{\pi_i\}_i,\{A_{ij}\}_{i,j},\{\mu_i\}_i, \{\sigma^2_i\}_i)$.
+We now have our target function $g$ written explicitly in terms of the model parameters $$\theta=(\{\pi_i\}_i,\{A_{ij}\}_{i,j},\{\mu_i\}_i, \{\sigma^2_i\}_i)$$.
 
 #### M-step
 
