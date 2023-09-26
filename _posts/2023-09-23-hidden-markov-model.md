@@ -15,7 +15,7 @@ Hidden Markov models have several interesting applications, especially in [NLP](
 
 Suppose you have a time-series $(y_1, \dots, y_T)$ where you know that each $y_t\, (t=1,\cdots,T)$ is normally distributed. Moreover, assume that each $y_t$ is a variate of one of $N$ normal distributions $\{\mathcal{N}(\mu_i, \sigma^2_i): i=1,\dots, N\}$, but you do not know which one and you also do not know the distributions' parameters $(\mu_i,\sigma^2_i)$. The task is then to determine all of these $2N$ parameters (training the model) and from which distribution each $y_t$ was most likely sampled (decoding), given the whole time series.
 
-Throught this post, we will use letters $i,j,k,\dots$ to indicate the distribution indices and $t$ as the letter representing indices of the time-series. We also denote $s_t$ the random variable determining which distribution $y_t$ is coming from: $s_t=i$ corresponds to the event $y_t\sim\mathcal{N}(\mu_i,\sigma^2_i)$. So $s_t$ is the **hidden state** of the time-series at time $t$. It is hidden because we cannot observe the state directly, in fact all we can observe are the $y_t$, which are typically called the **observables**. From now on, we will use the letter $f$ to denote any probability density function, in particular $f_i$ is the density function of $\mathcal{N}(\mu_i,\sigma^2_i)$, whereas discrete probability mass functions will be denoted by $\mathbb{P}$, for instance $\mathbb{P}(s_t)$ is the probability that the series was at state $s_t$ at time $t$.
+Throught this post, we will use letters $i,j,k,\dots$ to indicate the distribution indices and $t$ as the letter representing indices of the time-series. We also denote $s_t$ the random variable determining which distribution $y_t$ is coming from: $s_t=i$ corresponds to the event $y_t\sim\mathcal{N}(\mu_i,\sigma^2_i)$. So $s_t$ is the **hidden state** of the time-series at time $t$. It is hidden because we cannot observe the state directly, in fact all we can observe are the $y_t$, the **observables**. From now on, we will use the letter $f$ to denote any probability density function, in particular $f_i$ is the density function of $\mathcal{N}(\mu_i,\sigma^2_i)$, whereas discrete probability mass functions will be denoted by $\mathbb{P}$, for instance $\mathbb{P}(s_t)$ is the probability that the series was at state $s_t$ at time $t$.
 
 Let us now turn our attention to both the decoding and training problems.
 
@@ -74,7 +74,7 @@ The goal is to maximise the expected log-likelihood iteratively as described by 
 
 >1. Guess some initial value $\theta_0$ for $\theta$
 >2. E-step: calculate 
->$$g(\theta,\theta_0) = \mathbb{E}_{S_1,\dots,S_T\sim f_{\theta_0}}\left[\log f_\theta(S_1,\dots,S_T,y_1,\dots,y_T)\vert y_1,\dots,y_T\right]$$
+>$$g(\theta,\theta_0) = \mathbb{E}_{s_1,\dots,s_T\sim f_{\theta_0}}\left[\log f_\theta(s_1,\dots,s_T,y_1,\dots,y_T)\vert y_1,\dots,y_T\right]$$
 >3. M-step: maximise $\theta_1=\arg\max_{\theta}g(\theta,\theta_0)$
 >4. Set $\theta_0=\theta_1$.
 >5. Iterate over steps 2, 3 and 4 until the log-likelihood does not change by more than a predefined tolerante (or until the maximum number of iterations allowed by the user is reached).
@@ -86,7 +86,7 @@ Let us now describe steps 2 and 3.
 The expectation function can be written as
 
 $$
-g(\theta,\theta_0) = \sum_{i,...,k=1}^N \log f_\theta(S_1=i,\dots,S_T=k,y_1,\dots,y_T) f_{\theta_0}(S_1=i,\dots,S_T=k|y_1,\dots,y_T).
+g(\theta,\theta_0) = \sum_{i,...,k=1}^N \log f_\theta(s_1=i,\dots,s_T=k,y_1,\dots,y_T) f_{\theta_0}(s_1=i,\dots,s_T=k|y_1,\dots,y_T).
 $$
 
 
@@ -100,8 +100,8 @@ Let us introduce some convenient notation for the marginal distributions of $f_{
 
 $$
 \begin{align}
-\gamma_t(i) =& f_{\theta_0}(S_t=i\vert y_1,\dots,y_T) = \sum_{i_1,\dots,i_{t-1}, i_{t+1},\dots,i_T=1}^N f_{\theta_0}(S_1=i_1,\dots,S_T=i_T\vert y_1,\dots,y_T) \\
-\xi_t(i,j) =& f_{\theta_0}(S_t=i,S_{t+1}=j\vert y_1,\dots,y_T) = \sum_{i_l=1, l\not= i,j}^N f_{\theta_0}(S_1=i_1,\dots,S_T=i_T\vert y_1,\dots,y_T)
+\gamma_t(i) =& f_{\theta_0}(s_t=i\vert y_1,\dots,y_T) = \sum_{i_1,\dots,i_{t-1}, i_{t+1},\dots,i_T=1}^N f_{\theta_0}(s_1=i_1,\dots,s_T=i_T\vert y_1,\dots,y_T) \\
+\xi_t(i,j) =& f_{\theta_0}(s_t=i,s_{t+1}=j\vert y_1,\dots,y_T) = \sum_{i_l=1, l\not= i,j}^N f_{\theta_0}(s_1=i_1,\dots,s_T=i_T\vert y_1,\dots,y_T)
 \end{align}
 $$
 
@@ -111,7 +111,7 @@ $$
 g(\theta,\theta_0) = \sum_{i=1}^N\log(\pi_i) \gamma_1(i) + \sum_{t=1}^{T-1}\sum_{i,j=1}^N\log(A_{ij}) \xi_t(i,j)+\sum_{i=1}^N\sum_{t=1}^{T}\log(f_i(y_t))\gamma_t(i),
 $$
 
-where $\pi_i = \mathbb{P}(S_1=i)$, $A_{ij} = \mathbb{P}(S_{t+1}=j\vert S_{t+1}=i)$ (which is $t$-independent) and $f_i(y_t) = f(y_t\vert S_t=i)$ is the emission probability of state $i$ given by
+where $\pi_i = \mathbb{P}(s_1=i)$, $A_{ij} = \mathbb{P}(s_{t+1}=j\vert s_{t+1}=i)$ (which is $t$-independent) and $f_i(y_t) = f(y_t\vert s_t=i)$ is the emission probability of state $i$ given by
 
 $$
 f_i(y_t)=\frac{1}{\sqrt{2\pi \sigma^2_i}}e^{-\frac{(y_t-\mu_i)^2}{2\sigma_i^2}}.
@@ -156,8 +156,8 @@ Now, we need to describe how to calculate the $\gamma_t$ and $\xi_t$ functions. 
 
 $$
 \begin{align}
-\alpha_t(i)=&f(S_t=i,y_1,\dots,y_t) \\
-\beta_t(i)=&f(y_{t+1},\dots,y_t\vert S_t=i).
+\alpha_t(i)=&f(s_t=i,y_1,\dots,y_t) \\
+\beta_t(i)=&f(y_{t+1},\dots,y_t\vert s_t=i).
 \end{align}
 $$
 
@@ -165,11 +165,11 @@ Then, applying the definition of condition expectation and using Markovian assum
 
 $$
 \begin{align}
-\xi_t(i,j) =& f(S_t=i, S_{t+1}=j\vert y_1,\dots,y_T)=\frac{f(S_t=i,S_{t+1}=j, y_1,\dots,y_{t+1},y_{t+2},\dots,y_T)}{f(y_1,\dots,y_T)} \\
-=& \frac{f(y_{t+2},\dots,y_T\vert S_t=i,S_{t+1}=j, y_1,\dots,y_{t+1})f(y_{t+1}\vert S_{t}=i,S_{t+1}=j,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
-\times & f(S_{t+1}=j\vert S_t=i,y_1,\dots,y_{t})f(S_t=i,y_1,\dots,y_{t}) \\
-=&\frac{f(y_{t+2},\dots,y_T\vert S_{t+1}=j)f(y_{t+1}\vert S_{t+1}=j)f(S_{t+1}=j\vert S_t=i)f(S_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
-=&\frac{f(y_{t+2},\dots,y_T\vert S_{t+1}=j)f(y_{t+1}\vert S_{t+1}=j)f(S_{t+1}=j\vert S_t=i)f(S_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
+\xi_t(i,j) =& f(s_t=i, s_{t+1}=j\vert y_1,\dots,y_T)=\frac{f(s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1},y_{t+2},\dots,y_T)}{f(y_1,\dots,y_T)} \\
+=& \frac{f(y_{t+2},\dots,y_T\vert s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1})f(y_{t+1}\vert s_{t}=i,s_{t+1}=j,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
+\times & f(s_{t+1}=j\vert s_t=i,y_1,\dots,y_{t})f(s_t=i,y_1,\dots,y_{t}) \\
+=&\frac{f(y_{t+2},\dots,y_T\vert s_{t+1}=j)f(y_{t+1}\vert s_{t+1}=j)f(s_{t+1}=j\vert s_t=i)f(s_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
+=&\frac{f(y_{t+2},\dots,y_T\vert s_{t+1}=j)f(y_{t+1}\vert s_{t+1}=j)f(s_{t+1}=j\vert s_t=i)f(s_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
 =&\frac{\beta_{t+1}(j)f_i(y_{t+1})A_{ij}\alpha_t(i)}{\sum_{k,l=1}^N \beta_{t+1}(l)f_i(y_{t+1})A_{kl}\alpha_t(k)}
 \end{align}
 $$
@@ -178,8 +178,8 @@ and
 
 $$
 \begin{align}
-\gamma_t(i) =& \mathbb{P}(S_t=i\vert y_1,\dots,y_T) = \frac{f(S_t=i, y_1,\dots,y_T)}{f(y_1,\dots,y_T)} \\
-=&\frac{f(y_{t+1},\dots,y_T\vert S_t=i,y_1,\dots,y_t)f(S_t=i,y_1,\dots,y_t)}{f(y_1,\dots,y_T)} \\
+\gamma_t(i) =& \mathbb{P}(s_t=i\vert y_1,\dots,y_T) = \frac{f(s_t=i, y_1,\dots,y_T)}{f(y_1,\dots,y_T)} \\
+=&\frac{f(y_{t+1},\dots,y_T\vert s_t=i,y_1,\dots,y_t)f(s_t=i,y_1,\dots,y_t)}{f(y_1,\dots,y_T)} \\
 =&\frac{\alpha_t(i)\beta_t(i)}{\sum_{j=1}^N\alpha_t(j)\beta_t(j)}.
 \end{align}
 $$
@@ -194,9 +194,9 @@ Fot $t>1$,
 
 $$
 \begin{align}
-\alpha_t(i) =& f(S_t=i,y_1,\dots,y_t) = \sum_{j=1}^N f(S_{t-1}=j, S_t=i, y_1,\dots,y_t) \\
-=& \sum_{j=1}^N f(y_t\vert S_{t-1}=j, S_{t}=i, y_1,\dots,y_{t-1})f(S_{t}=i\vert S_{t-1}=j, y_1,\dots,y_{t-1})f(S_{t-1}=j, y_1,\dots,y_{t-1})\\
-=& \sum_{j=1}^N f(y_t\vert S_{t}=i)f(S_{t}=i\vert S_{t-1}=j)\alpha_{t-1}(j).
+\alpha_t(i) =& f(s_t=i,y_1,\dots,y_t) = \sum_{j=1}^N f(s_{t-1}=j, s_t=i, y_1,\dots,y_t) \\
+=& \sum_{j=1}^N f(y_t\vert s_{t-1}=j, s_{t}=i, y_1,\dots,y_{t-1})f(s_{t}=i\vert s_{t-1}=j, y_1,\dots,y_{t-1})f(s_{t-1}=j, y_1,\dots,y_{t-1})\\
+=& \sum_{j=1}^N f(y_t\vert s_{t}=i)f(s_{t}=i\vert s_{t-1}=j)\alpha_{t-1}(j).
 \end{align}
 $$
 
@@ -213,9 +213,9 @@ The recursion for $\beta$ is found in a similar fashion. For $t>1$,
 
 $$
 \begin{align}
-\beta_{t-1}(i) =& f(y_t,\dots,y_T\vert S_{t-1}=i) = \sum_{j=1}^N f(S_t=j,y_t,\dots,y_T\vert S_{t-1}=i) \\
-=& \sum_{j=1}^N f(y_{t+1},\dots,y_T\vert S_{t-1}=i, S_t=j, y_t)f(y_t\vert S_{t-1}=i,S_t=j)f(S_t=j\vert S_{t-1}=i) \\
-=& \sum_{j=1}^N f(y_{t+1},\dots,y_T\vert S_t=j)f(y_t\vert S_t=j)A_{ij}.
+\beta_{t-1}(i) =& f(y_t,\dots,y_T\vert s_{t-1}=i) = \sum_{j=1}^N f(s_t=j,y_t,\dots,y_T\vert s_{t-1}=i) \\
+=& \sum_{j=1}^N f(y_{t+1},\dots,y_T\vert s_{t-1}=i, s_t=j, y_t)f(y_t\vert s_{t-1}=i,s_t=j)f(s_t=j\vert s_{t-1}=i) \\
+=& \sum_{j=1}^N f(y_{t+1},\dots,y_T\vert s_t=j)f(y_t\vert s_t=j)A_{ij}.
 \end{align}
 $$
 
