@@ -37,7 +37,7 @@ $$
 \begin{align}
 f(s_1,\dots, s_T, y_1,\dots, y_T) =& f(y_T\vert s_1,\dots, s_T, y_1,\dots, y_{T-1}) f(s_1,\dots, s_T, y_1,\dots, y_{T-1}) \\
 =& f(y_T\vert s_1,\dots, s_T, y_1,\dots, y_{T-1}) f(s_T\vert s_1,\dots, s_{T-1},y_1,\dots, y_{T-1}) \\
-\times & f(s_1,\dots, s_{T-1},y_1,\dots, y_{T-1}) \\
+& \quad \times f(s_1,\dots, s_{T-1},y_1,\dots, y_{T-1}) \\
 =& f(y_T\vert s_T) \mathbb{P}(s_T\vert s_{T-1})f(s_1,\dots, s_{T-1},y_1,\dots, y_{T-1}).
 \end{align}
 $$
@@ -173,7 +173,7 @@ $$
 \begin{align}
 \xi_t(i,j) =& f(s_t=i, s_{t+1}=j\vert y_1,\dots,y_T)=\frac{f(s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1},y_{t+2},\dots,y_T)}{f(y_1,\dots,y_T)} \\
 =& \frac{f(y_{t+2},\dots,y_T\vert s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1})f(y_{t+1}\vert s_{t}=i,s_{t+1}=j,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
-\times & f(s_{t+1}=j\vert s_t=i,y_1,\dots,y_{t})f(s_t=i,y_1,\dots,y_{t}) \\
+& \quad \times f(s_{t+1}=j\vert s_t=i,y_1,\dots,y_{t})f(s_t=i,y_1,\dots,y_{t}) \\
 =&\frac{f(y_{t+2},\dots,y_T\vert s_{t+1}=j)f(y_{t+1}\vert s_{t+1}=j)f(s_{t+1}=j\vert s_t=i)f(s_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
 =&\frac{f(y_{t+2},\dots,y_T\vert s_{t+1}=j)f(y_{t+1}\vert s_{t+1}=j)f(s_{t+1}=j\vert s_t=i)f(s_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
 =&\frac{\beta_{t+1}(j)f_i(y_{t+1})A_{ij}\alpha_t(i)}{\sum_{k,l=1}^N \beta_{t+1}(l)f_i(y_{t+1})A_{kl}\alpha_t(k)}
@@ -196,12 +196,13 @@ Finally, we just need to show how to calculate $\alpha$ and $\beta$. This will b
 
 The forward-backward recursion relations can be derived from the definition of conditional probability and the Markovian conditions, just as used above.
 
-Fot $t>1$,
+For $t>1$,
 
 $$
 \begin{align}
 \alpha_t(i) =& f(s_t=i,y_1,\dots,y_t) = \sum_{j=1}^N f(s_{t-1}=j, s_t=i, y_1,\dots,y_t) \\
-=& \sum_{j=1}^N f(y_t\vert s_{t-1}=j, s_{t}=i, y_1,\dots,y_{t-1})f(s_{t}=i\vert s_{t-1}=j, y_1,\dots,y_{t-1})f(s_{t-1}=j, y_1,\dots,y_{t-1})\\
+=& \sum_{j=1}^N f(y_t\vert s_{t-1}=j, s_{t}=i, y_1,\dots,y_{t-1})f(s_{t}=i\vert s_{t-1}=j, y_1,\dots,y_{t-1}) \\
+& \quad \times f(s_{t-1}=j, y_1,\dots,y_{t-1}) \\
 =& \sum_{j=1}^N f(y_t\vert s_{t}=i)f(s_{t}=i\vert s_{t-1}=j)\alpha_{t-1}(j).
 \end{align}
 $$
