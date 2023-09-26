@@ -99,7 +99,7 @@ $$
 When presenting the Viterbi algorithm, we showed a recursion relation for the likelihood function that can easily be extended to
 
 $$
-f_\theta(s_1,\dots, s_T, y_1,\dots, y_T) = f(y_1\vert s_1)\cdots f(y_T\vert s_T) \mathbb{P}(s_2\vert s_1)\cdots \mathbb{P}(s_T\vert s_{T-1}) \mathbb{P}(s_1).
+f_\theta(s_1,\dots, s_T, y_1,\dots, y_T) = f_\theta(y_1\vert s_1)\cdots f_\theta(y_T\vert s_T) \mathbb{P}_{\theta}(s_2\vert s_1)\cdots \mathbb{P}_{\theta}(s_T\vert s_{T-1}) \mathbb{P}_{\theta}(s_1).
 $$
 
 Let us introduce some convenient notation for the marginal distributions of $f_{\theta_0}$
@@ -117,7 +117,7 @@ $$
 g(\theta,\theta_0) = \sum_{i=1}^N\log(\pi_i) \gamma_1(i) + \sum_{t=1}^{T-1}\sum_{i,j=1}^N\log(A_{ij}) \xi_t(i,j)+\sum_{i=1}^N\sum_{t=1}^{T}\log(f_i(y_t))\gamma_t(i),
 $$
 
-where $\pi_i = \mathbb{P}(s_1=i)$, $A_{ij} = \mathbb{P}(s_{t+1}=j\vert s_{t+1}=i)$ (which is $t$-independent) and $f_i(y_t) = f(y_t\vert s_t=i)$ is the emission probability of state $i$ given by
+where $\pi_i = \mathbb{P}_\theta(s_1=i)$, $A_{ij} = \mathbb{P}_{\theta}(s_{t+1}=j\vert s_{t+1}=i)$ (which is $t$-independent) and $f_i(y_t) = f_{\theta}(y_t\vert s_t=i)$ is the emission probability of state $i$ given by
 
 $$
 f_i(y_t)=\frac{1}{\sqrt{2\pi \sigma^2_i}}e^{-\frac{(y_t-\mu_i)^2}{2\sigma_i^2}}.
@@ -156,27 +156,27 @@ $$
 \end{align}
 $$
 
-As such, these $\ast$-ed parameters correspond to the $\theta_1$ parameter in step 4.
+These $\ast$-ed parameters correspond to the $\theta_1$ parameter in step 4.
 
-Now, we need to describe how to calculate the $\gamma_t$ and $\xi_t$ functions. First, define
+Now, we need to describe how to calculate the $\gamma_t$ and $\xi_t$ as functions of the guessed model parameters $$\theta_0 = \theta=(\{\pi^0_i\}_i,\{A^0_{ij}\}_{i,j},\{\mu^0_i\}_i, \{(\sigma^0)^2_i\}_i)$$. First, define
 
 $$
 \begin{align}
-\alpha_t(i)=&f(s_t=i,y_1,\dots,y_t) \\
-\beta_t(i)=&f(y_{t+1},\dots,y_t\vert s_t=i).
+\alpha_t(i)=&f_{\theta_0}(s_t=i,y_1,\dots,y_t) \\
+\beta_t(i)=&f_{\theta_0}(y_{t+1},\dots,y_t\vert s_t=i).
 \end{align}
 $$
 
-Then, applying the definition of condition expectation and using Markovian assumptions, we have
+Then, by applying the definition of condition expectation and using Markovian assumptions, we have
 
 $$
 \begin{align}
-\xi_t(i,j) =& f(s_t=i, s_{t+1}=j\vert y_1,\dots,y_T)=\frac{f(s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1},y_{t+2},\dots,y_T)}{f(y_1,\dots,y_T)} \\
-=& \frac{f(y_{t+2},\dots,y_T\vert s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1})f(y_{t+1}\vert s_{t}=i,s_{t+1}=j,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
-& \quad \times f(s_{t+1}=j\vert s_t=i,y_1,\dots,y_{t})f(s_t=i,y_1,\dots,y_{t}) \\
-=&\frac{f(y_{t+2},\dots,y_T\vert s_{t+1}=j)f(y_{t+1}\vert s_{t+1}=j)f(s_{t+1}=j\vert s_t=i)f(s_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
-=&\frac{f(y_{t+2},\dots,y_T\vert s_{t+1}=j)f(y_{t+1}\vert s_{t+1}=j)f(s_{t+1}=j\vert s_t=i)f(s_t=i,y_1,\dots,y_{t})}{f(y_1,\dots,y_T)} \\
-=&\frac{\beta_{t+1}(j)f_i(y_{t+1})A_{ij}\alpha_t(i)}{\sum_{k,l=1}^N \beta_{t+1}(l)f_i(y_{t+1})A_{kl}\alpha_t(k)}
+\xi_t(i,j) =& f_{\theta_0}(s_t=i, s_{t+1}=j\vert y_1,\dots,y_T)=\frac{f_{\theta_0}(s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1},y_{t+2},\dots,y_T)}{f_{\theta_0}(y_1,\dots,y_T)} \\
+=& \frac{f_{\theta_0}(y_{t+2},\dots,y_T\vert s_t=i,s_{t+1}=j, y_1,\dots,y_{t+1})f_{\theta_0}(y_{t+1}\vert s_{t}=i,s_{t+1}=j,y_1,\dots,y_{t})}{f_{\theta_0}(y_1,\dots,y_T)} \\
+& \quad \times f_{\theta_0}(s_{t+1}=j\vert s_t=i,y_1,\dots,y_{t})f_{\theta_0}(s_t=i,y_1,\dots,y_{t}) \\
+=&\frac{f_{\theta_0}(y_{t+2},\dots,y_T\vert s_{t+1}=j)f_{\theta_0}(y_{t+1}\vert s_{t+1}=j)f_{\theta_0}(s_{t+1}=j\vert s_t=i)f_{\theta_0}(s_t=i,y_1,\dots,y_{t})}{f_{\theta_0}(y_1,\dots,y_T)} \\
+=&\frac{f_{\theta_0}(y_{t+2},\dots,y_T\vert s_{t+1}=j)f_{\theta_0}(y_{t+1}\vert s_{t+1}=j)f_{\theta_0}(s_{t+1}=j\vert s_t=i)f_{\theta_0}(s_t=i,y_1,\dots,y_{t})}{f_{\theta_0}(y_1,\dots,y_T)} \\
+=&\frac{\beta_{t+1}(j)f_i(y_{t+1})A^0_{ij}\alpha_t(i)}{\sum_{k,l=1}^N \beta_{t+1}(l)f_i(y_{t+1})A^0_{kl}\alpha_t(k)}
 \end{align}
 $$
 
@@ -184,13 +184,13 @@ and
 
 $$
 \begin{align}
-\gamma_t(i) =& \mathbb{P}(s_t=i\vert y_1,\dots,y_T) = \frac{f(s_t=i, y_1,\dots,y_T)}{f(y_1,\dots,y_T)} \\
-=&\frac{f(y_{t+1},\dots,y_T\vert s_t=i,y_1,\dots,y_t)f(s_t=i,y_1,\dots,y_t)}{f(y_1,\dots,y_T)} \\
+\gamma_t(i) =& \mathbb{P}(s_t=i\vert y_1,\dots,y_T) = \frac{f_{\theta_0}(s_t=i, y_1,\dots,y_T)}{f_{\theta_0}(y_1,\dots,y_T)} \\
+=&\frac{f_{\theta_0}(y_{t+1},\dots,y_T\vert s_t=i,y_1,\dots,y_t)f_{\theta_0}(s_t=i,y_1,\dots,y_t)}{f_{\theta_0}(y_1,\dots,y_T)} \\
 =&\frac{\alpha_t(i)\beta_t(i)}{\sum_{j=1}^N\alpha_t(j)\beta_t(j)}.
 \end{align}
 $$
 
-Finally, we just need to show how to calculate $\alpha$ and $\beta$. This will be done with the [forward-backward algorithm](https://en.wikipedia.org/wiki/Forward%E2%80%93backward_algorithm), which is another dynamic programming procedure.
+Finally, we just need to show how to calculate the $\alpha_t$ and $\beta_t$ functions. This will be done with the [forward-backward algorithm](https://en.wikipedia.org/wiki/Forward%E2%80%93backward_algorithm), which is another dynamic programming procedure.
 
 ##### Forward-backward algorithm
 
@@ -200,10 +200,10 @@ For $t>1$,
 
 $$
 \begin{align}
-\alpha_t(i) =& f(s_t=i,y_1,\dots,y_t) = \sum_{j=1}^N f(s_{t-1}=j, s_t=i, y_1,\dots,y_t) \\
-=& \sum_{j=1}^N f(y_t\vert s_{t-1}=j, s_{t}=i, y_1,\dots,y_{t-1})f(s_{t}=i\vert s_{t-1}=j, y_1,\dots,y_{t-1}) \\
-& \quad \times f(s_{t-1}=j, y_1,\dots,y_{t-1}) \\
-=& \sum_{j=1}^N f(y_t\vert s_{t}=i)f(s_{t}=i\vert s_{t-1}=j)\alpha_{t-1}(j).
+\alpha_t(i) =& f_{\theta_0}(s_t=i,y_1,\dots,y_t) = \sum_{j=1}^N f_{\theta_0}(s_{t-1}=j, s_t=i, y_1,\dots,y_t) \\
+=& \sum_{j=1}^N f_{\theta_0}(y_t\vert s_{t-1}=j, s_{t}=i, y_1,\dots,y_{t-1})f_{\theta_0}(s_{t}=i\vert s_{t-1}=j, y_1,\dots,y_{t-1}) \\
+& \quad \times f_{\theta_0}(s_{t-1}=j, y_1,\dots,y_{t-1}) \\
+=& \sum_{j=1}^N f_{\theta_0}(y_t\vert s_{t}=i)f_{\theta_0}(s_{t}=i\vert s_{t-1}=j)\alpha_{t-1}(j).
 \end{align}
 $$
 
@@ -211,18 +211,19 @@ Thus, the forward part of the algorithm is given by
 
 $$
 \begin{align}
-\alpha_t(i) =& \sum_{j=1}^N f_i(y_t)A_{ji}\alpha_{t-1}(j) \\
-\alpha_1(i)=& f_i(y_1) \pi_i.
+\alpha_t(i) =& \sum_{j=1}^N f_i(y_t)A^0_{ji}\alpha_{t-1}(j) \\
+\alpha_1(i)=& f^0_i(y_1) \pi^0_i,
 \end{align}
 $$
+where $f^0_i(y_1)$ is the probability density function of $\mathcal{N}(\mu^0_i, (\sigma^0_i)^2)$.
 
 The recursion for $\beta$ is found in a similar fashion. For $t>1$,
 
 $$
 \begin{align}
-\beta_{t-1}(i) =& f(y_t,\dots,y_T\vert s_{t-1}=i) = \sum_{j=1}^N f(s_t=j,y_t,\dots,y_T\vert s_{t-1}=i) \\
-=& \sum_{j=1}^N f(y_{t+1},\dots,y_T\vert s_{t-1}=i, s_t=j, y_t)f(y_t\vert s_{t-1}=i,s_t=j)f(s_t=j\vert s_{t-1}=i) \\
-=& \sum_{j=1}^N f(y_{t+1},\dots,y_T\vert s_t=j)f(y_t\vert s_t=j)A_{ij}.
+\beta_{t-1}(i) =& f_{\theta_0}(y_t,\dots,y_T\vert s_{t-1}=i) = \sum_{j=1}^N f_{\theta_0}(s_t=j,y_t,\dots,y_T\vert s_{t-1}=i) \\
+=& \sum_{j=1}^N f_{\theta_0}(y_{t+1},\dots,y_T\vert s_{t-1}=i, s_t=j, y_t)f_{\theta_0}(y_t\vert s_{t-1}=i,s_t=j)f_{\theta_0}(s_t=j\vert s_{t-1}=i) \\
+=& \sum_{j=1}^N f_{\theta_0}(y_{t+1},\dots,y_T\vert s_t=j)f_{\theta_0}(y_t\vert s_t=j)A_{ij}.
 \end{align}
 $$
 
