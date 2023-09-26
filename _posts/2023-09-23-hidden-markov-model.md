@@ -36,7 +36,8 @@ In order to greatly improve the runtime of the decoding algorithm, let us rewrit
 $$
 \begin{align}
 f(s_1,\dots, s_T, y_1,\dots, y_T) =& f(y_T\vert s_1,\dots, s_T, y_1,\dots, y_{T-1}) f(s_1,\dots, s_T, y_1,\dots, y_{T-1}) \\
-=& f(y_T\vert s_1,\dots, s_T, y_1,\dots, y_{T-1}) f(s_T\vert s_1,\dots, s_{T-1},y_1,\dots, y_{T-1})f(s_1,\dots, s_{T-1},y_1,\dots, y_{T-1}) \\
+=& f(y_T\vert s_1,\dots, s_T, y_1,\dots, y_{T-1}) f(s_T\vert s_1,\dots, s_{T-1},y_1,\dots, y_{T-1}) \\
+\times & f(s_1,\dots, s_{T-1},y_1,\dots, y_{T-1}) \\
 =& f(y_T\vert s_T) \mathbb{P}(s_T\vert s_{T-1})f(s_1,\dots, s_{T-1},y_1,\dots, y_{T-1}).
 \end{align}
 $$
