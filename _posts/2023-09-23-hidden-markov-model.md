@@ -44,7 +44,13 @@ $$
 
 Notice how we managed to factor out the $T$ components, giving a recursion relation that is the cornerstone of the dynamic programming framework.
 
-For convenience, let us define a function $\nu_T(s_T) = \max_{s_1,\dots,s_{T-1}}f(s_1,\dots, s_T, y_1,\dots, y_T)$. At the final step, we want to find $\max_{s_T}\nu_T(s_T)$. With these definitions,
+For convenience, let us define a function 
+
+$$
+\nu_T(s_T) = \max_{s_1,\dots,s_{T-1}}f(s_1,\dots, s_T, y_1,\dots, y_T).
+$$
+
+At the final step, we want to find $\max_{s_T}\nu_T(s_T)$. With these definitions,
 
 $$
 \begin{align}
