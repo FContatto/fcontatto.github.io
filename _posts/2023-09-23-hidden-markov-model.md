@@ -215,6 +215,7 @@ $$
 \alpha_1(i)=& f^0_i(y_1) \pi^0_i,
 \end{align}
 $$
+
 where $f^0_i(y_1)$ is the probability density function of $\mathcal{N}(\mu^0_i, (\sigma^0_i)^2)$.
 
 The recursion for $\beta$ is found in a similar fashion. For $t>1$,
@@ -228,6 +229,7 @@ $$
 $$
 
 Thus, the backward part of the algorithm is given by
+
 $$
 \begin{align}
 \beta_{t-1}(i) =& \sum_{j=1}^N \beta_t(j)f_j(y_t)A^0_{ij} \\
