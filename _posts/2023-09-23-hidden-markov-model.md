@@ -19,9 +19,9 @@ Throughout this post, we will use letters $i,j,k,\dots$ to indicate the distribu
 
 Before diving into the algorithms, we should keep in mind the Markovian conditions, which will be important to make the problem tractable.
 
-> The transition probabilities are time independent: $$\mathbb{P}(s_t\vert s_{t-1})$$ is $t$-independent.
-> The observation $y_t$ only depends on the state $s_t$: $$f(y_t\vert s_1, \dots,s_t,y_1,\dots,y_{t-1}) = f(y_t\vert s_t)$$.
-> The state $s_t$ only depends on the state $s_{t-1}$: $$\mathbb{P}(s_t\vert s_1,\dots,s_{t-1}, y_1, \dots, y_{t-1}) = \mathbb{P}(s_t\vert s_{t-1})$$.
+>1. The transition probabilities are time independent: $$\mathbb{P}(s_t\vert s_{t-1})$$ is $t$-independent.
+>2. The observation $y_t$ only depends on the state $s_t$: $$f(y_t\vert s_1, \dots,s_t,y_1,\dots,y_{t-1}) = f(y_t\vert s_t)$$.
+>3. The state $s_t$ only depends on the state $s_{t-1}$: $$\mathbb{P}(s_t\vert s_1,\dots,s_{t-1}, y_1, \dots, y_{t-1}) = \mathbb{P}(s_t\vert s_{t-1})$$.
 
 Let us now turn our attention to both the decoding and training problems.
 
