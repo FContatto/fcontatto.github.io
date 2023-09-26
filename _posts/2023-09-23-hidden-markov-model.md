@@ -7,7 +7,7 @@ tags: [machine learning, hmm]
 comments: true
 ---
 
-In this post, I present the details of an elegant machine learning model: the hidden Markov model. I derive all the mathematical relations used in its training and decoding, with the appropriate motivation at each step so the various definitions feel natural to any reader familiar with basic probability. The main goal is to derive formulas within the Gaussian emission framework for a univariate time-series, but this post is generic enough to be generalised to other emission distributions and, with slightly more work, to multivariate series.
+In this post, I present the details of an elegant machine learning model: the hidden Markov model. I derive all the mathematical relations used in its training and decoding, with the appropriate motivation at each step so the various definitions feel natural to any reader familiar with basic probability. The main goal is to derive formulas within the Gaussian emission framework for a univariate time-series, but this post is generic enough to contain the core ideas behind a more general model.
 
 Hidden Markov models have several interesting applications, especially in [NLP](https://en.wikipedia.org/wiki/Natural_language_processing) as it became a pivotal algorithm for speech tagging. In a future post, I will describe uses of the same model within finance, hence the motivation to present the Gaussian framework specifically here.
 
