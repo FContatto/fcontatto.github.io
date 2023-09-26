@@ -21,10 +21,10 @@ Let us now turn our attention to both the decoding and training problems.
 
 ## Decoding problem
 
-Assume, for now, that all the distributions' parameters $\{(\mu_i,\sigma^2_i)\}$ have been fixed. We want to find a time-series of states $s^*_1,\dots,s^*_T$ so that the join likelihood $f(s_1,\dots, s_N, y_1,\dots, y_T)$ (i.e. the joint probability density function of all the states and observables) is maximised. The $y_t$'s are fixed as they were observed, we now just need to calculate
+Assume, for now, that all the distributions' parameters $\{(\mu_i,\sigma^2_i)\}$ have been fixed. We want to find a time-series of states $s^\ast_1,\dots,s^\ast_T$ so that the join likelihood $f(s_1,\dots, s_N, y_1,\dots, y_T)$ (i.e. the joint probability density function of all the states and observables) is maximised. The $y_t$'s are fixed as they were observed, we now just need to calculate
 
 $$
-(s^*_1,\dots,s^*_T) = \arg\max_{s_1,\dots,s_T}f(s_1,\dots, s_N, y_1,\dots, y_T).
+(s^\ast_1,\dots,s^\ast_T) = \arg\max_{s_1,\dots,s_T}f(s_1,\dots, s_N, y_1,\dots, y_T).
 $$
 
 A naive approach would be to do a brute force search through all the possible sequences of states $s_1,\dots,s_T$ and see which one maximises the likelihood. However, since there are $N$ possible states at each timestamp, the decoding algorithm would have exponential runtime $O(N^T)$, which quickly becomes intractable. We can do much better with a simple dynamic programming approach.
@@ -131,25 +131,25 @@ where the $\lambda$'s are the Lagrange multipliers.
 One of the maximisation equations is $\frac{\partial\mathcal{L}}{\partial\pi_i}=0$ which, together with the constraint on the $\pi_i$'s (which will result in $\lambda_1=1$) gives
 
 $$
-\pi^*_i=\gamma_1(i), \; i=1,\dots,N.
+\pi^\ast_i=\gamma_1(i), \; i=1,\dots,N.
 $$
 
 Setting the differentials with respect to $A_{ij}$ to $0$ and imposing the constraints will give
 
 $$
-A^*_{ij} = \frac{\sum_{t=1}^{T-1}\xi_t(i,j)}{\sum_{t=1}^{T-1}\gamma_t(i)}.
+A^\ast_{ij} = \frac{\sum_{t=1}^{T-1}\xi_t(i,j)}{\sum_{t=1}^{T-1}\gamma_t(i)}.
 $$
 
 Finally, maximising with respect to the emission distribution's parameters $\mu_i$ and $\sigma_i$ gives
 
 $$
 \begin{align}
-\mu^*_i =& \frac{1}{T}\sum_{t=1}^T\gamma_t(i)y_t \\
-(\sigma^*)^2_i =& \frac{1}{T}\sum_{t=1}^T\gamma_t(i)(y_t-\mu_i)^2.
+\mu^\ast_i =& \frac{1}{T}\sum_{t=1}^T\gamma_t(i)y_t \\
+(\sigma^\ast)^2_i =& \frac{1}{T}\sum_{t=1}^T\gamma_t(i)(y_t-\mu_i)^2.
 \end{align}
 $$
 
-As such, these $*$-ed parameters correspond to the $\theta_1$ parameter in step 4.
+As such, these $\ast$-ed parameters correspond to the $\theta_1$ parameter in step 4.
 
 Now, we need to describe how to calculate the $\gamma_t$ and $\xi_t$ functions. First, define
 
