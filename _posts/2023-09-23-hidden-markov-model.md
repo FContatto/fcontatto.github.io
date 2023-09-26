@@ -62,9 +62,9 @@ $$
 
 and the recursion starts with $\nu_1(s_1)=f(y_1\vert s_1)\mathbb{P}(s_1)$.
 
-The above equation implies that, for each possible value of $s_t$, when we calculate $\nu_t(s_t)$ we are actually fixing the value of the state $s_{t-1}$, which will then be unchanged thereafter. 
+The above equation implies that when we calculate $\nu_t(s_t)$  for each possible value of $s_t$, we will be able to fix the value of the state $s_{t-1}$, which will then be unchanged thereafter. 
 
-For each fixed $s_T$, the calculation of $\nu_T(s_T)$ takes $O(N)$ runtime. Therefore, the calculation of the whole function $s_T\mapsto \nu_T(s_T)$ takes $O(N^2)$. Since the time-series has length $T$, the overall runtime to calculate the entire state time-series $\{s_t\}$ is just $O(TN^2)$, a much improved metric compared to the brute force approach. On top of that, if we ignore the memory required to store the state time-series, the extra memory required for the algorithm is just $O(1)$ if we keep track of the $\max_{s_{T-1}}\left(\mathbb{P}(s_T\vert s_{T-1})\nu_{T-1}(s_{T-1})\right)$ as we calculate $s_{T-1}\mapsto \nu_{T-1}(s_{T-1})$.
+For each fixed $s_T$, the calculation of $\nu_T(s_T)$ takes $O(N)$ runtime. Therefore, the calculation of the whole function $s_T\mapsto \nu_T(s_T)$ takes $O(N^2)$. Since the time-series has length $T$, the overall runtime to calculate the entire state time-series $\{s_t\}$ is just $O(TN^2)$, a much improved metric compared to the brute force approach.
 
 ## Training problem
 
@@ -152,7 +152,7 @@ Finally, maximising with respect to the emission distribution's parameters $\mu_
 $$
 \begin{align}
 \mu^\ast_i =& \frac{1}{T}\sum_{t=1}^T\gamma_t(i)y_t \\
-(\sigma^\ast)^2_i =& \frac{1}{T}\sum_{t=1}^T\gamma_t(i)(y_t-\mu_i)^2.
+(\sigma^\ast_i)^2 =& \frac{1}{T}\sum_{t=1}^T\gamma_t(i)(y_t-\mu_i)^2.
 \end{align}
 $$
 
