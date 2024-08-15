@@ -164,7 +164,7 @@ $$
 
 These $\ast$-ed parameters correspond to the $\theta_1$ parameter in step 4.
 
-Now, we need to describe how to calculate the $\gamma_t$ and $\xi_t$ as functions of the guessed model parameters $$\theta_0 =(\{\pi^0_i\}_i,\{A^0_{ij}\}_{i,j},\{\mu^0_i\}_i, \{(\sigma^0_i)^2\}_i)$$. First, define
+Now, let us calculate the $\gamma_t$ and $\xi_t$ as functions of the guessed model parameters $$\theta_0 =(\{\pi^0_i\}_i,\{A^0_{ij}\}_{i,j},\{\mu^0_i\}_i, \{(\sigma^0_i)^2\}_i)$$. First, define
 
 $$
 \begin{align}
